@@ -1,6 +1,6 @@
 package com.yonyou.cloud.demo.tcc.account.mapper;
 
-import com.yonyou.cloud.tcc.points.api.entity.TmUser;
+import com.yonyou.cloud.tcc.account.api.entity.TmUser;
 
 import tk.mybatis.mapper.common.Mapper;
 

@@ -3,16 +3,16 @@ package com.yonyou.cloud.demo.tcc.points.service;
 import java.util.Date;
 
 import org.mengyun.tcctransaction.api.Compensable;
-import org.mengyun.tcctransaction.api.TransactionContext;
 import org.mengyun.tcctransaction.api.Compensable.DefaultTransactionContextEditor;
+import org.mengyun.tcctransaction.api.TransactionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.cloud.common.service.BaseService;
-import com.yonyou.cloud.demo.tcc.points.entity.TmPoints;
-import com.yonyou.cloud.tcc.points.api.entity.TmUser;
+import com.yonyou.cloud.tcc.account.api.entity.TmUser;
+import com.yonyou.cloud.tcc.points.api.entity.TmPoints;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -29,7 +29,7 @@ public class PointsServiceImpl extends BaseService<Mapper<TmPoints>, TmPoints> i
 	 */
 	@Compensable(confirmMethod = "confirmAdd", cancelMethod = "cancelAdd",transactionContextEditor = DefaultTransactionContextEditor.class)
 	@Transactional(rollbackFor = Exception.class)
-	public void addUserPoints(TransactionContext context, TmUser user) {
+	public TmPoints addUserPoints(TransactionContext context, TmUser user) {
 		
 		logger.debug("getGlobalTransactionId "+context.getXid().getGlobalTransactionId().toString());
 		
@@ -49,17 +49,21 @@ public class PointsServiceImpl extends BaseService<Mapper<TmPoints>, TmPoints> i
 			this.insert(newPoints);
 		}
 		
-		logger.info(""+1/0);
+//		logger.info(""+1/0);
+		
+		return points;
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public void confirmAdd(TransactionContext context, TmUser user) {
+	public TmPoints confirmAdd(TransactionContext context, TmUser user) {
 		logger.debug("确认提交积分");
+		return null;
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public void cancelAdd(TransactionContext context, TmUser user) {
+	public TmPoints cancelAdd(TransactionContext context, TmUser user) {
 		logger.debug("取消提交积分");
+		return null;
 	}
 	
 	

@@ -1,8 +1,6 @@
 package com.yonyou.cloud.demo.tcc.account.service;
 
-import org.mengyun.tcctransaction.api.TransactionContext;
-
-import com.yonyou.cloud.tcc.points.api.entity.TmUser;
+import com.yonyou.cloud.tcc.account.api.entity.TmUser;
 
 public interface UserService {
 
@@ -12,10 +10,10 @@ public interface UserService {
 	 * @param userName
 	 * @return
 	 */
-	public TmUser userSign(String userName) ;
+	public TmUser userSign(String userName) throws Exception;
 
-	public TmUser confirmSign(String userName);
+	public TmUser confirmSign(String userName) throws Exception;
 	
-	public TmUser cancelSign(String userName);
+	public TmUser cancelSign(String userName) throws Exception;
 
 }

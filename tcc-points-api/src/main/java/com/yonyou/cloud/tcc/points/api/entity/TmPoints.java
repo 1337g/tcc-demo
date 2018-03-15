@@ -1,22 +1,18 @@
 package com.yonyou.cloud.tcc.points.api.entity;
 
-import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.*;
 
-@Table(name = "tm_user")
-public class TmUser implements Serializable {
-	
-	private static final long serialVersionUID = 6879674411259297611L;
-
-	@Id
+@Table(name = "tm_points")
+public class TmPoints {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "user_id")
+    private Long userId;
 
-    private String password;
+    private Long value;
 
     @Column(name = "create_date")
     private Date createDate;
@@ -39,31 +35,31 @@ public class TmUser implements Serializable {
     }
 
     /**
-     * @return name
+     * @return user_id
      */
-    public String getName() {
-        return name;
+    public Long getUserId() {
+        return userId;
     }
 
     /**
-     * @param name
+     * @param userId
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     /**
-     * @return password
+     * @return value
      */
-    public String getPassword() {
-        return password;
+    public Long getValue() {
+        return value;
     }
 
     /**
-     * @param password
+     * @param value
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setValue(Long value) {
+        this.value = value;
     }
 
     /**
