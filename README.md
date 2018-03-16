@@ -9,4 +9,20 @@
 
 ## DEMO说明
 
-通过用户注册后发送积分和优惠券的场景来演示
+通过用户注册后发送积分和优惠券的场景来演示，
+tcc的过程 参考 https://github.com/changmingxie/tcc-transaction/issues/132
+
+## 模块说明
+* tcc-account ：用户服务
+* tcc-coupon ：优惠券服务
+* tcc-points ：积分服务
+
+## 怎么运行
+
+1.运行eureka   
+2.下载common项目 https://github.com/ambluse/common-elegance  
+3.下载本项目  
+4.下载tcc框架(原项目没有注释，fork过来添加了相应日志) https://github.com/yonyou-auto-dev/tcc-transaction   
+5.脚本在script目录下  
+
+## demo的业务逻辑不严谨，仅用来演示TCC
