@@ -26,8 +26,8 @@
 		
 		<javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
 		
-		<table tableName="**" >
-		  <generatedKey column="ID" sqlStatement="Mysql" identity="true"/>
+		<table tableName="tm_coupon" >
+		  <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
 		</table>
 	</context>
 </generatorConfiguration>

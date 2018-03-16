@@ -1,4 +1,4 @@
-package com.yonyou.cloud.demo.tcc.points.config;
+package com.yonyou.cloud.demo.tcc.coupon.config;
 
 import javax.sql.DataSource;
 
@@ -27,8 +27,8 @@ public class TccConfig {
 
         SpringJdbcTransactionRepository repository = new SpringJdbcTransactionRepository();
         repository.setDataSource(tccDataSource());
-        repository.setDomain("POINTS");
-        repository.setTbSuffix("_POINTS");
+//        repository.setDomain("USER");
+//        repository.setTbSuffix("_USER");
         repository.setSerializer(serializer);
         return repository;
     }

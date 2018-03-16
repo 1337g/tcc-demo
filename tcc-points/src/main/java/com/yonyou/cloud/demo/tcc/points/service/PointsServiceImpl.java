@@ -31,8 +31,6 @@ public class PointsServiceImpl extends BaseService<Mapper<TmPoints>, TmPoints> i
 	@Transactional(rollbackFor = Exception.class)
 	public TmPoints addUserPoints(TransactionContext context, TmUser user) {
 		
-		logger.debug("getGlobalTransactionId "+context.getXid().getGlobalTransactionId().toString());
-		
 		TmPoints points = new TmPoints();
 		points.setUserId(user.getId());
 		points=this.selectOne(points);
@@ -41,17 +39,17 @@ public class PointsServiceImpl extends BaseService<Mapper<TmPoints>, TmPoints> i
 			points.setValue(points.getValue()+5);
 			points.setUpdateDate(new Date());
 			this.updateSelectiveById(points);
+			
+			return  points;
 		}else {
 			TmPoints newPoints = new TmPoints();
 			newPoints.setUserId(user.getId());
 			newPoints.setCreateDate(new Date());
 			newPoints.setValue(5L);
 			this.insert(newPoints);
+			return newPoints;
 		}
 		
-//		logger.info(""+1/0);
-		
-		return points;
 	}
 	
 	@Transactional(rollbackFor = Exception.class)

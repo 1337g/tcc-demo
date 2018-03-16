@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
-import com.yonyou.cloud.demo.tcc.account.config.properties.TccDataSourceProperties;
+import com.yonyou.cloud.common.tcc.TccDataSourceProperties;
 
 @Configuration
 @ImportResource(locations = "classpath:tcc-transaction.xml")

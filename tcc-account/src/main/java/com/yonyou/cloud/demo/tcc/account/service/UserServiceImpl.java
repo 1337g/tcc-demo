@@ -11,8 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.cloud.common.service.BaseService;
 import com.yonyou.cloud.demo.tcc.account.mapper.TmUserMapper;
+import com.yonyou.cloud.demo.tcc.account.service.client.CouponServiceClientProxy;
 import com.yonyou.cloud.demo.tcc.account.service.client.PointServiceClientProxy;
 import com.yonyou.cloud.tcc.account.api.entity.TmUser;
+import com.yonyou.cloud.tcc.coupon.api.entity.TmCoupon;
+import com.yonyou.cloud.tcc.points.api.entity.TmPoints;
 
 import tk.mybatis.mapper.common.Mapper;
 
@@ -26,6 +29,9 @@ public class UserServiceImpl extends BaseService<Mapper<TmUser>, TmUser> impleme
 
 	@Autowired
 	PointServiceClientProxy pointServiceClientProxy;
+	
+	@Autowired
+	CouponServiceClientProxy couponServiceClientProxy;
 
 	/**
 	 * 用户注册 try阶段
@@ -44,11 +50,23 @@ public class UserServiceImpl extends BaseService<Mapper<TmUser>, TmUser> impleme
 		user.setUpdateDate(new Date());
 		this.insert(user);
 
-		if(!pointServiceClientProxy.addPoints(null, user).isSuccess()) {
+		TmPoints points = pointServiceClientProxy.addPoints(null, user).getData();
+		
+		if(points==null) {
 			throw new Exception("积分获取失败");
 		}
+		
+		
+		TmCoupon coupon = new TmCoupon();
+		coupon.setId(1L);
+		coupon.setUserId(user.getId());
+		
+		coupon=couponServiceClientProxy.sendCoupon(null, coupon).getData();
+		
+		if(coupon==null) {
+			throw new Exception("优惠券发放失败");
+		}
 
-//		int i = 1/0;
 		return user;
 	}
 

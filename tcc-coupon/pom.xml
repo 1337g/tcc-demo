@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.yonyou.cloud.demo</groupId>
@@ -17,8 +18,10 @@
 	</parent>
 
 	<properties>
-		<packageName>com.yonyou.project.biz.name</packageName>
-		
+		<packageName>com.yonyou.cloud.demo.tcc.coupon</packageName>
+
+		<spring-cloud.version>Dalston.SR4</spring-cloud.version>
+
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,10 +35,10 @@
 		<!-- XML生成路径 -->
 		<targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
 		<targetXMLPackage>mybatis/mapper</targetXMLPackage>
-		
+
 		<!-- 相关依赖的版本 -->
 		<!-- 二方库 -->
-		<commonElegance.verison>0.0.1-SNAPSHOT</commonElegance.verison>
+		<commonElegance.verison>0.0.2-SNAPSHOT</commonElegance.verison>
 		<mom.version>0.0.2-SNAPSHOT</mom.version>
 		<!-- 三方库 -->
 		<mapper.version>3.4.2</mapper.version>
@@ -43,9 +46,25 @@
 		<druidStarter.version>1.1.4</druidStarter.version>
 		<pagehelpStarter.version>1.2.3</pagehelpStarter.version>
 		<swaggerStarter.version>1.5.1.RELEASE</swaggerStarter.version>
+
+		<!-- <tcc.version>1.1.5.2</tcc.version> -->
+		<tcc.version>1.2.4.20</tcc.version>
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.yonyou.cloud</groupId>
+			<artifactId>tcc-coupon-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.yonyou.cloud</groupId>
+			<artifactId>tcc-account-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.yonyou.cloud</groupId>
 			<artifactId>common-elegance</artifactId>
@@ -62,7 +81,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -97,14 +116,59 @@
 			<artifactId>spring-boot-starter-swagger</artifactId>
 			<version>${swaggerStarter.version}</version>
 		</dependency>
-		
+
 		<!-- actuator -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+
+
+		<!--eureka客户端 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-feign</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mengyun</groupId>
+			<artifactId>tcc-transaction-spring</artifactId>
+			<version>${tcc.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.zookeeper</groupId>
+					<artifactId>zookeeper</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mengyun</groupId>
+			<artifactId>tcc-transaction-api</artifactId>
+			<version>${tcc.version}</version>
+		</dependency>
+
 	</dependencies>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<finalName>boot-name</finalName>
@@ -136,25 +200,25 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
-			<plugin>  
-		          <groupId>org.apache.maven.plugins</groupId>  
-		          <artifactId>maven-archetype-plugin</artifactId>  
-		          <version>2.2</version>  
-      		</plugin> 
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-archetype-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
 		</plugins>
 	</build>
 
 	<distributionManagement>
-	  	<repository>
-	  		<id>nexus-releases</id>
-	  		<name>Releases name</name>
-	  		<url>http://210.13.111.26:10160/nexus/content/repositories/releases/</url>
-	  	</repository>
-	  	<snapshotRepository>
-	  		<id>nexus-snapshots</id>
-	  		<name>snapshots name</name>
-	  		<url>http://210.13.111.26:10160/nexus/content/repositories/snapshots/</url>
-	  	</snapshotRepository>
-  	</distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>Releases name</name>
+			<url>http://210.13.111.26:10160/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>snapshots name</name>
+			<url>http://210.13.111.26:10160/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
