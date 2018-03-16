@@ -25,4 +25,12 @@ tcc的过程 参考 https://github.com/changmingxie/tcc-transaction/issues/132
 4.下载tcc框架(原项目没有注释，fork过来添加了相应日志) https://github.com/yonyou-auto-dev/tcc-transaction   
 5.脚本在script目录下  
 
+## 测试
+
+* 调用接口 http://localhost:8080/user/sign?userName=14   
+* 用户注册后会发放积分和优惠券  
+* 如果try过程失败会同步回滚
+* 如果confirm和cancel过程失败，会有job来重试
+
+
 ## demo的业务逻辑不严谨，仅用来演示TCC
