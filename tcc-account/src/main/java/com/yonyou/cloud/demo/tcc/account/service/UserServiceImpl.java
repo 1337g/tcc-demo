@@ -1,6 +1,7 @@
 package com.yonyou.cloud.demo.tcc.account.service;
 
 import java.util.Date;
+import java.util.Random;
 
 import org.mengyun.tcctransaction.api.Compensable;
 import org.slf4j.Logger;
@@ -56,9 +57,10 @@ public class UserServiceImpl extends BaseService<Mapper<TmUser>, TmUser> impleme
 			throw new Exception("积分获取失败");
 		}
 		
-		
+		Random r = new Random();
+		long i=r.nextInt(100000);
 		TmCoupon coupon = new TmCoupon();
-		coupon.setId(1L);
+		coupon.setId(i);
 		coupon.setUserId(user.getId());
 		
 		coupon=couponServiceClientProxy.sendCoupon(null, coupon).getData();

@@ -1,16 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.yonyou.cloud.demo</groupId>
-	<artifactId>tcc-coupon</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	<name>boot-name</name>
-	<description>Demo project for Spring Boot</description>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.yonyou</groupId>
+  <artifactId>tcc-notification</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -18,7 +12,7 @@
 	</parent>
 
 	<properties>
-		<packageName>com.yonyou.cloud.demo.tcc.coupon</packageName>
+		<packageName>com.yonyou.cloud.demo.tcc.notification</packageName>
 
 		<spring-cloud.version>Dalston.SR4</spring-cloud.version>
 
@@ -54,28 +48,11 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.yonyou.cloud</groupId>
-			<artifactId>tcc-coupon-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-<!-- 		<dependency>
-			<groupId>com.yonyou</groupId>
-			<artifactId>tcc-part-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency> -->
-
-		<dependency>
-			<groupId>com.yonyou.cloud</groupId>
-			<artifactId>tcc-account-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
 			<groupId>com.yonyou</groupId>
 			<artifactId>tcc-notification-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>com.yonyou.cloud</groupId>

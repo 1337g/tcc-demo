@@ -1,4 +1,4 @@
-package com.yonyou.cloud.demo.tcc.coupon.config;
+package com.yonyou.cloud.demo.tcc.notification.config;
 
 import javax.sql.DataSource;
 
@@ -27,8 +27,8 @@ public class TccConfig {
 
         SpringJdbcTransactionRepository repository = new SpringJdbcTransactionRepository();
         repository.setDataSource(tccDataSource());
-        repository.setDomain("COUPON");
-        repository.setTbSuffix("_COUPON");
+        repository.setDomain("NOTIFICATION");
+        repository.setTbSuffix("_NOTIFICATION");
         repository.setSerializer(serializer);
         return repository;
     }

@@ -1,0 +1,10 @@
+tcc-part/
+tcc-part-api/
+tcc-notification-api/.classpath
+tcc-notification-api/.gitignore
+tcc-notification-api/.project
+tcc-notification-api/.settings/
+tcc-notification/.classpath
+tcc-notification/logs/
+tcc-notification/.settings/
+tcc-notification/.project
