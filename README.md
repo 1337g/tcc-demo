@@ -25,6 +25,29 @@ tcc的过程 参考 https://github.com/changmingxie/tcc-transaction/issues/132
 4.下载tcc框架(原项目没有注释，fork过来添加了相应日志) https://github.com/yonyou-auto-dev/tcc-transaction   
 5.脚本在script目录下  
 
+## 主从主从模式关键点
+
+1.从调用主要捕获异常，防止由于网络等原因导致第一个主从回滚
+		try{
+			TmNotification tranEntity=new TmNotification();
+			tranEntity.setId(tmCoupon.getId());
+			notificationServiceClientProxy.sendNotification(null,tranEntity);
+		}catch(Exception e){
+
+		}
+2.第二个主从的从，Controller要加@YcApi
+	@RequestMapping(value="/notification",method=RequestMethod.POST)
+	@YcApi
+	public RestResultResponse<TmNotification> sendNotification(@RequestBody TransactionEntity<TmNotification> tranEntity)
+			throws Exception {
+		return new RestResultResponse<>().success(true).data(notificationService.tryBindNotification(tranEntity.getContext(), tranEntity.getBody()));
+	}
+3.第二个主从的从，定义为根事务
+    @Compensable(propagation=Propagation.REQUIRES_NEW,confirmMethod="bindNotification",cancelMethod="unBindNotification")
+	@Transactional(rollbackFor = Exception.class)
+	public TmNotification tryBindNotification(TransactionContext transactionContext, TmNotification tmNotification) throws Exception{
+    }
+
 ## 测试
 
 * 调用接口 http://localhost:8080/user/sign?userName=14   
