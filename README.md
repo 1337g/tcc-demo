@@ -26,8 +26,10 @@ tcc的过程 参考 https://github.com/changmingxie/tcc-transaction/issues/132
 5.脚本在script目录下  
 
 ## 主从主从模式关键点
+即account->coupon->notification,notification为独立事务
 
-1.从调用主要捕获异常，防止由于网络等原因导致第一个主从回滚
+1.从(coupon)调用主(notification)要捕获异常，防止由于网络等原因notification失败导致第一个主从回滚
+```
 		try{
 			TmNotification tranEntity=new TmNotification();
 			tranEntity.setId(tmCoupon.getId());
@@ -35,18 +37,24 @@ tcc的过程 参考 https://github.com/changmingxie/tcc-transaction/issues/132
 		}catch(Exception e){
 
 		}
-2.第二个主从的从，Controller要加@YcApi
+```
+2.第二个主从的从(notification)，Controller要加@YcApi
+```
 	@RequestMapping(value="/notification",method=RequestMethod.POST)
 	@YcApi
 	public RestResultResponse<TmNotification> sendNotification(@RequestBody TransactionEntity<TmNotification> tranEntity)
 			throws Exception {
 		return new RestResultResponse<>().success(true).data(notificationService.tryBindNotification(tranEntity.getContext(), tranEntity.getBody()));
 	}
-3.第二个主从的从，定义为根事务
+```
+3.第二个主从的从(notification)，定义为根事务，否则这里抛出的异常无法被coupon识别，导致根(account)发起执行confirm 阶段，这里也会执行
+```
     @Compensable(propagation=Propagation.REQUIRES_NEW,confirmMethod="bindNotification",cancelMethod="unBindNotification")
 	@Transactional(rollbackFor = Exception.class)
 	public TmNotification tryBindNotification(TransactionContext transactionContext, TmNotification tmNotification) throws Exception{
     }
+```
+
 
 ## 测试
 
